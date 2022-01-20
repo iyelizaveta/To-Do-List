@@ -1,0 +1,126 @@
+html, body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+body {
+    background: url(background.png);
+    background-color: rgba(235, 220, 220, 0.5);
+    background-size: cover;
+    width: 100%;
+    font-family: "Lobster";
+}
+
+#container {
+    margin-top: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    border: 2px solid #cccef3;
+    border-radius: 10px;
+}
+
+h1 {
+    margin: auto;
+    font-size: 2em;
+}
+
+#add_task {
+    display: flex;
+    justify-content: space-between;
+}
+
+#add_task__enter {
+    background-color: #dde0ff;
+    box-sizing: border-box;
+    margin: 5px;
+    width: 350px;
+    height: 40px;
+    border: 0;
+    border-radius: 5px;
+    font-family: "Lobster";
+    font-size: 1em;
+}
+
+#add_task__btn {
+    box-sizing: border-box;
+    margin: 5px;
+    width: 100px;
+    height: 40px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #dde0ff;
+    font-size: 1em;
+    font-family: "Lobster";
+}
+
+#add_task__btn:hover {
+    border: 2px solid #e063de;
+    cursor: pointer;
+}
+
+#add_task__btn:active {
+    background-color: #e063de;
+    opacity: 0.5;
+}
+
+#task_list {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+}
+
+#task_list__point {
+    margin: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    word-wrap: break-word;
+    justify-content: space-between;
+    align-items: center;
+    width: 460px;
+    height: auto;
+    background-color: #b0b4eb;
+    border-radius: 5px;
+}
+
+#description {
+    font-size: 1em;
+    width: 300px;
+}
+
+#delete_task {
+    width: 60px;
+    height: 25px;
+    border: 0;
+    background-color: #dde0ff;
+    border-radius: 5px;
+    font-family: "Lobster";
+    font-size: 1em;
+}
+
+#delete_task:hover {
+    border: 2px solid #e063de;
+    cursor: pointer;
+}
+
+#delete_task:active {
+    background-color: #e063de;
+    opacity: 0.5;
+}
+
+#checked {
+    font-style: italic;
+    opacity: 0.6;
+    background-color: #e063de;
+    text-decoration: line-through;
+}
