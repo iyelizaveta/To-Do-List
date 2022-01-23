@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playball&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>To Do List</title>
 </head>
+
 <body>
     <div id="container">
         <h1>Список дел</h1>
         <div id="add_task">
-            <input type="text" id="add_task__enter">
+            <input type="text" id="add_task__enter" required>
             <button id="add_task__btn">Добавить</button>
         </div>
-        <ul id="task_list">
-            
+
+        <ul id="task_list_unfinished">Незавершенные дела:
+
         </ul>
+        
+        <ul id="task_list_finished">Завершенные дела:
+
+        </ul>
+
     </div>
     <script src="index.js"></script>
 </body>
+
 </html>

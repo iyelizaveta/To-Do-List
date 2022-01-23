@@ -1,86 +1,120 @@
-const { Button } = require("bootstrap");
-
 const enterTask = document.getElementById('add_task__enter');
-const addTask = document.getElementById('add_task__btn');
-const taskList = document.getElementById('task_list');
+const addTaskBtn = document.getElementById('add_task__btn');
+const taskListUnfin = document.getElementById('task_list_unfinished');
+const taskListFin = document.getElementById('task_list_finished');
 
-let tasks;
-!localStorage.tasks ? tasks = [] : tasks = JSON.parse(localStorage.getItem('tasks'));
+const createNewEnter = (task, isFinised) => {
+    const listItem = document.createElement('li');
+    listItem.className = "task_list__point";
 
-let taskListPoint = [];
+    const descr = document.createElement('div');
+    descr.className = "description";
+    descr.textContent = enterTask.value;
 
-function Task(description) {
-    this.description = description;
-    this.completed = false;
-}
+    const buttons = document.createElement('div');
+    buttons.className = "buttons";
 
-const createNewEnter = (task, index) => {
-    return `
-        <li id="task_list__point" ${task.completed ? 'checked' : ''}">
-            <div id="description">${task.description}</div>
-            <div id="buttons">
-                <input onclick="isCompleted(${index})" type="checkbox" id="complete_task" ${task.completed ? 'checked' : ''}>
-                <button onclick="deleteTask(${index})" id="delete_task" type="button">Delete</button>
-            </div>
-        </li>
-    `
-}
+    const checkbox = document.createElement('input');
+    checkbox.type = "checkbox";
+    checkbox.className = "complete_task"
 
-const filterTask = () => {
-    const activeTasks = tasks.length && tasks.filter(item => item.completed == false);
-    const completedTasks = tasks.length && tasks.filter(item => item.completed == true);
-    tasks = [...activeTasks,...completedTasks];
-}
+    const delTask = document.createElement('button');
+    delTask.className = "delete_task";
+    delTask.textContent = "Delete";
 
-const fillList = () => {
-    taskList.innerHTML = "";
-    if(tasks.length > 0) {
-        filterTask();
-        tasks.forEach((item, index) => {
-            taskList.innerHTML += createNewEnter(item, index);
-        });
-        taskListPoint = document.querySelectorAll('.task_list__point');
-    }
-}
-
-const fillListComplete = () => {
-   isCompleted.innerHTML = "";
-    if(tasks.length > 0) {
-        tasks.forEach((item, index) => {
-            isCompleted.innerHTML += createNewEnter(item, index);
-        });
-        taskListPoint = document.querySelectorAll('.task_list__point');
-    }
-}
-
-fillList();
-
-const updLocal = () => {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-}
-
-const updList = () => {
-    updLocal();
-    fillList();
-}
-
-const isCompleted = index => {
-    tasks[index].completed = !tasks[index].completed;
-    if(tasks[index].completed) {
-        taskListPoint[index].classList.add('checked');
+    if(isFinised) {
+        listItem.className = "task_list__point checked";
+        checkbox.setAttribute("checked", "checked");
     } else {
-        taskListPoint[index].classList.remove('checked');
+        listItem.className = "task_list__point";
     }
-    updList();
+
+    taskListUnfin.appendChild(listItem);
+    taskListFin.appendChild(listItem);
+    listItem.appendChild(descr);
+    listItem.appendChild(buttons);
+    buttons.appendChild(checkbox);
+    buttons.appendChild(delTask);
+
+    return listItem;
 }
 
-addTask.addEventListener('click', () => {
-    tasks.push(new Task(enterTask.value));
-    updList();
-    enterTask.value = '';
-})
+const addTask = () => {
+    if(enterTask.value) {
+        const listItem = createNewEnter(enterTask.value, false);
+        taskListUnfin.appendChild(listItem);
+        bindTaskEvents(listItem, finishTask);
+        enterTask.value = "";
+    }
+    save();
+}
 
-const deleteTask = index => {
-    tasks.splice(index, 1);
-    updList();
+addTaskBtn.onclick = addTask;
+
+function deleteTask() {
+    const btn = this.parentNode
+    const listItem = btn.parentNode;
+    const ul = listItem.parentNode;
+    ul.removeChild(listItem);
+    save();
+}
+
+function finishTask() {
+    const btn = this.parentNode;
+    const listItem = btn.parentNode;
+    listItem.classList.toggle('checked');
+    taskListFin.appendChild(listItem);
+    bindTaskEvents(listItem, unfinishTask);
+    save();
+}
+
+function unfinishTask() {
+    const btn = this.parentNode;
+    const listItem = btn.parentNode;
+    listItem.classList.toggle('checked');
+    taskListUnfin.appendChild(listItem);
+    bindTaskEvents(listItem, finishTask);
+    save();
+}
+
+const bindTaskEvents = (listItem, checkboxEvent) => {
+    const checkbox = listItem.querySelector('.complete_task');
+    const delTask = listItem.querySelector('.delete_task');
+    checkbox.onclick = checkboxEvent;
+    delTask.onclick = deleteTask;
+}
+
+function save() {
+    let taskListUnfinArr = [];
+    for(let i = 0; i < taskListUnfin.children.length; i++) {
+        taskListUnfinArr.push(taskListUnfin.children[i].querySelectorAll('.description')[0].textContent);
+    }
+
+    let taskListFinArr = [];
+    for(let i = 0; i < taskListFin.children.length; i++) {
+        taskListFinArr.push(taskListFin.children[i].querySelectorAll('.description')[0].textContent);
+    }
+
+    localStorage.removeItem('todo');
+    localStorage.setItem('todo', JSON.stringify({
+        taskListUnfin: taskListUnfinArr, 
+        taskListFin: taskListFinArr
+    }));
+}
+
+function load() {
+    return JSON.parse(localStorage.getItem('todo'));
+}
+
+let data = load();
+for(let i = 0; i < data.taskListUnfin.length; i++) {
+    const listItem = createNewEnter(data.taskListUnfin[i], false);
+    taskListUnfin.appendChild(listItem);
+    bindTaskEvents(listItem, finishTask);
+}
+
+for(let i = 0; i < data.taskListFin.length; i++) {
+    const listItem = createNewEnter(data.taskListFin[i], true);
+    taskListFin.appendChild(listItem);
+    bindTaskEvents(listItem, unfinishTask);
 }
