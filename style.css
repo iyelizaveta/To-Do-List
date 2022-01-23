@@ -30,7 +30,6 @@ body {
 h1 {
     margin: 0 auto 10px auto;
     font-size: 2.2em;
-    /* color: #ddb444; */
 }
 
 #add_task {
@@ -63,7 +62,6 @@ h1 {
     border-radius: 5px;
     background-color: #dde0ff;
     font-size: 1em;
-    /* color: #ad8c30; */
     font-family: "Lobster";
 }
 
@@ -77,6 +75,11 @@ h1 {
     opacity: 0.5;
 }
 
+h2 {
+    font-size: 1.8em;
+    margin: 10px 0 10px 0;
+}
+
 #task_list_unfinished, #task_list_finished {
     list-style-type: none;
     box-sizing: border-box;
@@ -84,8 +87,6 @@ h1 {
     padding: 0;
     display: flex;
     flex-direction: column;
-    /* color: #ecbe40; */
-    font-size: 1.8em;
 }
 
 .task_list__point {
@@ -100,7 +101,6 @@ h1 {
     height: auto;
     background-color: #b0b4eb;
     border-radius: 5px;
-    font-size: 0.6em;
     color: #330331;
     word-wrap: break-word;
 }

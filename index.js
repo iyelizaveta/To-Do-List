@@ -9,7 +9,7 @@ const createNewEnter = (task, isFinised) => {
 
     const descr = document.createElement('div');
     descr.className = "description";
-    descr.textContent = enterTask.value;
+    descr.textContent = task;
 
     const buttons = document.createElement('div');
     buttons.className = "buttons";
