@@ -30,6 +30,7 @@ body {
 h1 {
     margin: 0 auto 10px auto;
     font-size: 2.2em;
+    padding: 0;
 }
 
 #add_task {
@@ -76,8 +77,9 @@ h1 {
 }
 
 h2 {
-    font-size: 1.8em;
-    margin: 10px 0 10px 0;
+    font-size: 1.6em;
+    margin: 5px 0 5px 0;
+    padding: 0;
 }
 
 #task_list_unfinished, #task_list_finished {
@@ -87,17 +89,32 @@ h2 {
     padding: 0;
     display: flex;
     flex-direction: column;
+    width: 470px;
+    height: 28vh;
+    overflow-y: scroll;
+}
+
+#task_list_unfinished::-webkit-scrollbar, #task_list_finished::-webkit-scrollbar {
+    width: 7px;
+    border-radius: 5px;
+    background-color: #9399f0;
+    opacity: 0.6;
+}
+
+#task_list_unfinished::-webkit-scrollbar-thumb, #task_list_finished::-webkit-scrollbar-thumb {
+    background-color: #d87dd6;
+    border-radius: 5px;
 }
 
 .task_list__point {
-    margin: 10px 0 5px 0;
+    margin: 5px 0 5px 0;
     padding: 10px;
     box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    width: 460px;
+    width: 450px;
     height: auto;
     background-color: #b0b4eb;
     border-radius: 5px;
@@ -122,7 +139,6 @@ h2 {
     border-radius: 5px;
     font-family: "Lobster";
     font-size: 1em;
-    /* color: #ad8c30; */
 }
 
 .delete_task:hover {
@@ -140,4 +156,46 @@ h2 {
     opacity: 0.6;
     background-color: #e063de;
     text-decoration: line-through;
+}
+
+@media screen and (max-width: 550px) {
+
+    #container {
+        width: 350px;
+    }
+    
+    h1 {
+        font-size: 1.5em;
+    }
+    
+    #add_task__enter {
+        width: 230px;
+        height: 30px;
+        font-size: 0.8em;
+    }
+    
+    #add_task__btn {
+        width: 70px;
+        height: 30px;
+        font-size: 0.8em;
+    }
+    
+    h2 {
+        font-size: 1.5em;
+    }
+    
+    .task_list__point {
+        width: 310px;
+    }
+    
+    .description {
+        font-size: 0.8em;
+        width: 200px;
+    }
+    
+    .delete_task {
+        width: 40px;
+        height: 20px;
+        font-size: 0.6em;
+    }
 }
